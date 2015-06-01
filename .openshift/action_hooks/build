@@ -1,0 +1,30 @@
+#!/bin/bash
+
+# Exit on first error.
+set -e
+
+umask 077
+
+# Configure versions
+SCALA_VERSION='2.11.4'
+SBT_VERSION='0.13.8'
+
+# Setup dir references
+OPENSHIFT_RUNTIME_DIR=${OPENSHIFT_DIY_DIR}/runtime/
+ROOT_DIR=${OPENSHIFT_RUNTIME_DIR}
+#BUILD_DIR=${OPENSHIFT_TMP_DIR}/build
+
+mkdir -p ${ROOT_DIR}
+
+cd ${ROOT_DIR}
+
+echo "Downloading scala $SCALA_VERSION..."
+curl -s -o scala-$SCALA_VERSION.tgz http://downloads.typesafe.com/scala/$SCALA_VERSION/scala-$SCALA_VERSION.tgz
+tar xzf scala-$SCALA_VERSION.tgz
+rm -f scala-$SCALA_VERSION.tgz
+ln -s scala-$VERSION scala
+
+echo "Downloading sbt $SBT_VERSION..."
+curl -L -o sbt.tgz -O http://dl.bintray.com:80/sbt/native-packages/sbt/${SBT_VERSION}/sbt-${SBT_VERSION}.tgz
+tar zxvf sbt.tgz
+rm -f xzf sbt.tgz
