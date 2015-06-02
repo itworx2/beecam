@@ -10,21 +10,31 @@ SCALA_VERSION='2.11.4'
 SBT_VERSION='0.13.8'
 
 # Setup dir references
-OPENSHIFT_RUNTIME_DIR=${OPENSHIFT_DIY_DIR}/runtime/
+OPENSHIFT_RUNTIME_DIR=${OPENSHIFT_DIY_DIR}runtime/
 ROOT_DIR=${OPENSHIFT_RUNTIME_DIR}
 #BUILD_DIR=${OPENSHIFT_TMP_DIR}/build
+SBT_PATH=${ROOT_DIR}sbt/
+SBT_DIR=${ROOT_DIR}.sbt/
+IVY_DIR=${ROOT_DIR}.ivy
 
-mkdir -p ${ROOT_DIR}
+mkdir -p $ROOT_DIR
+mkdir -p $SBT_DIR
+mkdir -p $IVY_DIR
 
-cd ${ROOT_DIR}
+cd $ROOT_DIR
 
 echo "Downloading scala $SCALA_VERSION..."
 curl -s -o scala-$SCALA_VERSION.tgz http://downloads.typesafe.com/scala/$SCALA_VERSION/scala-$SCALA_VERSION.tgz
 tar xzf scala-$SCALA_VERSION.tgz
 rm -f scala-$SCALA_VERSION.tgz
-ln -s scala-$VERSION scala
+ln -s scala-$SCALA_VERSION scala
 
 echo "Downloading sbt $SBT_VERSION..."
 curl -L -o sbt.tgz -O http://dl.bintray.com:80/sbt/native-packages/sbt/${SBT_VERSION}/sbt-${SBT_VERSION}.tgz
 tar zxvf sbt.tgz
 rm -f xzf sbt.tgz
+
+cd $OPENSHIFT_REPO_DIR
+
+echo "Compiling..."
+$SBT_PATH/bin/sbt -sbt-dir $SBT_DIR -ivy $IVY_DIR -mem 256 compile
