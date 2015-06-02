@@ -2,3 +2,7 @@
 
 Based on the OpenShift `diy` cartridge documented at:
 http://openshift.github.io/documentation/oo_cartridge_guide.html#diy
+
+## Demo Pages
+- http://beecam-itworx2.rhcloud.com/
+- http://beecam-itworx2.rhcloud.com/hello
