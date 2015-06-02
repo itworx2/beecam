@@ -32,6 +32,9 @@ ln -sf apache-tomcat-$TOMCAT_VERSION apache-tomcat
 pushd apache-tomcat-$TOMCAT_VERSION
 rm -rf logs
 ln -s $OPENSHIFT_LOG_DIR logs
+pushd webapps
+rm -rf *
+popd
 popd
 
 echo "Downloading scala $SCALA_VERSION..."
@@ -48,4 +51,6 @@ rm -f xzf sbt.tgz
 cd $OPENSHIFT_REPO_DIR
 
 echo "Compiling..."
-$SBT_PATH/bin/sbt -sbt-dir $SBT_DIR -ivy $IVY_DIR -mem 256 compile
+$SBT_PATH/bin/sbt -sbt-dir $SBT_DIR -ivy $IVY_DIR -mem 512 package
+#FIXME: Should deduce WAR version
+mv target/scala-2.11/beecam_2.11-0.1.war ${ROOT_DIR}apache-tomcat/webapps/ROOT.war
