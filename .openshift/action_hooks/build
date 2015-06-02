@@ -6,6 +6,7 @@ set -e
 umask 077
 
 # Configure versions
+TOMCAT_VERSION='8.0.23'
 SCALA_VERSION='2.11.4'
 SBT_VERSION='0.13.8'
 
@@ -22,6 +23,16 @@ mkdir -p $SBT_DIR
 mkdir -p $IVY_DIR
 
 cd $ROOT_DIR
+
+echo "Downloading Apache Tomcat $SCALA_VERSION..."
+curl -s -o apache-tomcat-$TOMCAT_VERSION.tar.gz http://www.us.apache.org/dist/tomcat/tomcat-8/v$TOMCAT_VERSION/bin/apache-tomcat-$TOMCAT_VERSION.tar.gz
+tar xzf apache-tomcat-$TOMCAT_VERSION.tar.gz
+rm -f apache-tomcat-$TOMCAT_VERSION.tar.gz
+ln -sf apache-tomcat-$TOMCAT_VERSION apache-tomcat
+pushd apache-tomcat-$TOMCAT_VERSION
+rm -rf logs
+ln -s $OPENSHIFT_LOG_DIR logs
+popd
 
 echo "Downloading scala $SCALA_VERSION..."
 curl -s -o scala-$SCALA_VERSION.tgz http://downloads.typesafe.com/scala/$SCALA_VERSION/scala-$SCALA_VERSION.tgz
