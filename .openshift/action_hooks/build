@@ -24,7 +24,7 @@ mkdir -p $IVY_DIR
 
 cd $ROOT_DIR
 
-echo "Downloading Apache Tomcat $SCALA_VERSION..."
+echo "Downloading Apache Tomcat $TOMCAT_VERSION..."
 curl -s -o apache-tomcat-$TOMCAT_VERSION.tar.gz http://www.us.apache.org/dist/tomcat/tomcat-8/v$TOMCAT_VERSION/bin/apache-tomcat-$TOMCAT_VERSION.tar.gz
 tar xzf apache-tomcat-$TOMCAT_VERSION.tar.gz
 rm -f apache-tomcat-$TOMCAT_VERSION.tar.gz
